@@ -8,4 +8,5 @@ r = requests.get(url, verify=False)
 stations = re.findall(r'([A-Z]+)\|([a-z]+)', r.text)
 stations = dict(stations)
 stations = dict(zip(stations.values(), stations.keys()))
+# s2 = {k:v for v,k in stations}  #list expression
 pprint(stations, indent=4)

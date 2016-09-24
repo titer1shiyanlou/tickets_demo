@@ -21,7 +21,7 @@ from docopt import docopt
 import re
 import requests
 from pprint import pprint
-from stations import stations
+from stations import stations   #from diy dic ,should add table name for it
 
 from prettytable import PrettyTable
 
@@ -87,16 +87,26 @@ class TrainCollection(object):
 
 		
 def cli():
-    arguments = docopt(__doc__)
+    arguments = docopt(__doc__)  #66 here
     from_staion = stations.get(arguments['<from>'])
     to_station = stations.get(arguments['<to>'])
-    date = arguments['<date>']
+    date = arguments['<date>']  #from the pycharm config 
+	
+	
     # 构建URL
     url = 'https://kyfw.12306.cn/otn/lcxxcx/query?purpose_codes=ADULT&queryDate={}&from_station={}&to_station={}'.format(
         date, from_staion, to_station
-    )
-    r = requests.get(url, verify=False)
-    rows = r.json()['data']['datas']
+    )#66 :sprintf use {} for each string 
+	
+    r = requests.get(url, verify=False) #for https disable
+    print(r.text)
+    print('@@@')#try to switch line
+    print(r.json)#this is second
+    print('###')#try to switch line
+    rows = r.json()['data']['datas']   # r.text
+
+    print(rows)
+    print('###')#try to switch line
     trains = TrainCollection(rows)
     trains.pretty_print()
 
@@ -104,6 +114,10 @@ def cli():
 if __name__ == '__main__':
     cli()
 	
+'''
+{"data" : { "datas":"the key you need"}}
+
+'''
 
 '''
 def cli():
